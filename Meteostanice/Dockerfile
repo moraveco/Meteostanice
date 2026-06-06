@@ -1,7 +1,6 @@
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base 
-WORKDIR /app
-RUN mkdir /app/data /app/logs && chown $APP_UID /app/data /app/logs
+﻿FROM mcr.microsoft.com/dotnet/runtime:10.0 AS base
 USER $APP_UID
+WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
