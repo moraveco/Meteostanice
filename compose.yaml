@@ -1,0 +1,7 @@
+﻿services:
+  meteostanice:
+    image: meteostanice
+    build:
+      context: .
+      dockerfile: Meteostanice/Dockerfile
+
