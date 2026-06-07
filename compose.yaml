@@ -1,7 +1,9 @@
-﻿services:
+services:
   meteostanice:
     image: meteostanice
     build:
       context: .
       dockerfile: Meteostanice/Dockerfile
+    ports:
+      - "8080:8080"
 
