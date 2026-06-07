@@ -35,7 +35,7 @@ public static class DashboardEndpoints
             var onlineCount = await db.MeteoRecords.CountAsync(r => r.IsOnline);
             var latest = records.FirstOrDefault();
             var lastSeenText = latest != null
-                ? $"{latest.FetchedAt:d.M. yyyy}"
+                ? $"{latest.FetchedAt:d.M. yyyy HH:mm:ss}"
                 : "N/A";
 
             var rows = string.Join("\n", records.Select(r => $"""
