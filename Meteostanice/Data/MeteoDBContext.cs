@@ -2,9 +2,7 @@ namespace Meteostanice.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-public class MeteoDbContext : DbContext
+public class MeteoDbContext(DbContextOptions<MeteoDbContext> options) : DbContext(options)
 {
-    public MeteoDbContext(DbContextOptions<MeteoDbContext> options) : base(options) { }
-
     public DbSet<MeteoRecord> MeteoRecords { get; set; }
 }
