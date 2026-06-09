@@ -15,17 +15,14 @@ public class Worker(
 {
     private readonly MeteoSettings _settings = settings.Value;
 
-    protected override async
-        Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         logger.LogInformation("MeteoCollector started");
 
         while (!stoppingToken.IsCancellationRequested)
         {
             await CollectDataAsync();
-            await Task.Delay(
-                TimeSpan.FromMinutes(_settings.IntervalMinutes), 
-                stoppingToken);
+            await Task.Delay(TimeSpan.FromMinutes(_settings.IntervalMinutes), stoppingToken);
         }
     }
 

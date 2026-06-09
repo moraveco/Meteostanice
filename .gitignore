@@ -4,4 +4,5 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 Meteostanice/appsettings.json
-Meteostanice/appsettings.Development.json
+Meteostanice/appsettings.Development.jsonMeteostanice/logs/
+Meteostanice/meteo.db*

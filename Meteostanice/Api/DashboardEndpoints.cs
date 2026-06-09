@@ -24,6 +24,18 @@ public static class DashboardEndpoints
             });
         });
 
+        app.MapGet("/download/{id}", async (int id, MeteoDbContext db) =>
+        {
+            var record = await db.MeteoRecords.FindAsync(id);
+            if (record == null || string.IsNullOrEmpty(record.JsonData))
+            {
+                return Results.NotFound("Data not found");
+            }
+            
+            var bytes = System.Text.Encoding.UTF8.GetBytes(record.JsonData);
+            return Results.File(bytes, "application/json", $"meteo_{record.FetchedAt:yyyyMMdd_HHmmss}.json");
+        });
+
         app.MapGet("/dashboard", async (MeteoDbContext db) =>
         {
             var records = await db.MeteoRecords
@@ -46,7 +58,9 @@ public static class DashboardEndpoints
                                                                               {(r.IsOnline ? "Online" : "Offline")}
                                                                           </span>
                                                                       </td>
-                                                                      <td><pre class="mb-0 small">{r.JsonData ?? "No data"}</pre></td>
+                                                                      <td>
+                                                                          {(string.IsNullOrEmpty(r.JsonData) ? "<span class='text-muted small'>No data</span>" : $"<a href=\"/download/{r.Id}\" class=\"btn btn-sm btn-outline-primary\"><i class=\"bi bi-download\"></i> Download JSON</a>")}
+                                                                      </td>
                                                                   </tr>
                                                               """));
 
