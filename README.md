@@ -9,6 +9,50 @@ Pro spuštění projektu je nutné mít nainstalovanou jednu z následujících 
 * Docker a Docker Compose
 * .NET 10 SDK (pro lokální spuštění)
 
+### Konfigurace
+
+Konfigurační soubory nejsou součástí repozitáře. Před spuštěním je nutné je vytvořit ručně ve složce `Meteostanice/`.
+
+Vytvořte soubor `Meteostanice/appsettings.json`:
+
+```json
+{
+  "MeteoSettings": {
+    "XmlUrl": "[ZDE VLOŽTE XML URL]",
+    "IntervalMinutes": 60
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=meteo.db"
+  },
+  "Serilog": {
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "logs/meteo-.log",
+          "rollingInterval": "Day"
+        }
+      }
+    ]
+  }
+}
+```
+
+Vytvořte soubor `Meteostanice/appsettings.Development.json`:
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+```
+
 ### Jak aplikaci spustit
 
 Nejsnazší způsob spuštění je pomocí nástroje Docker. V kořenovém adresáři repozitáře stačí zadat příkaz:
@@ -27,7 +71,7 @@ cd Meteostanice
 dotnet run
 ```
 
-Konfiguraci adresy meteostanice a intervalu stahování lze upravit v souboru appsettings.json nebo pomocí proměnných prostředí.
+Konfiguraci adresy meteostanice a intervalu stahování lze upravit v souboru `appsettings.json` nebo pomocí proměnných prostředí.
 
 ### Časová náročnost
 
